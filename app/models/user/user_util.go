@@ -1,15 +1,20 @@
 package user
 
-import "go-api/pkg/database"
+import (
+	"fmt"
+	"go-api/pkg/database"
+)
 
 // IsValExist 判断 Email/phone 已被注册
-func IsValExist(val string) bool {
+func IsValExist(valnanme string, val string) bool {
 	var count int64
-	switch val {
+	switch valnanme {
 	case "email":
+		fmt.Println("走email")
 		database.DB.Model(User{}).Where("email =?", val).Count(&count)
 	case "phone":
-		database.DB.Model(User{}).Where("email =?", val).Count(&count)
+		fmt.Println("走phone")
+		database.DB.Model(User{}).Where("phone =?", val).Count(&count)
 	}
 
 	return count > 0

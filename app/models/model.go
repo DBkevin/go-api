@@ -14,11 +14,11 @@ type BaseModel struct {
 
 // CommonTimestampsField 时间戳
 type CommonTimestampsField struct {
-	CreatdAt  time.Time `gotrm:"column:created_at;index;comment:创建时间戳,索引;" json:"created_at,omitempty"`
+	CreatdAt  time.Time `gorm:"column:created_at;index;comment:创建时间戳,索引;" json:"created_at,omitempty"`
 	UpdatedAt time.Time `gorm:"column:updated_at;index;comment:更新时间戳，索引;" json:"updated_at,omitempty"`
 }
 
 // 软删除
 type SoftDeletes struct {
-	DeletedAt gorm.DeletedAt `json:"deleted_at" gorm:"index"`
+	DeletedAt gorm.DeletedAt `json:"deleted_at" gorm:"index;comment:软删除，删除时间"`
 }
