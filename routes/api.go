@@ -19,17 +19,13 @@ func RegisterAPIRoutes(r *gin.Engine) {
 			suc := new(auth.SignupController)
 			// 判断手机是否已注册
 			authGroup.POST("/signup/phone/exist", suc.IsPhoneExist)
+			// 判断 Email 是否已注册
+			authGroup.POST("/signup/email/exist", suc.IsEmailExist)
 			authGroup.GET("/", func(ctx *gin.Context) {
 				ctx.JSON(http.StatusOK, gin.H{
 					"text": "World",
 				})
 			})
 		}
-		v1.GET("/", func(ctx *gin.Context) {
-			// 以 JSON 格式响应
-			ctx.JSON(http.StatusOK, gin.H{
-				"Hello": "World!",
-			})
-		})
 	}
 }
