@@ -5,12 +5,13 @@ import (
 	"fmt"
 	"go-api/app/models/user"
 	"go-api/pkg/config"
+	"go-api/pkg/logger"
+
 	"go-api/pkg/database"
 	"time"
 
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
-	"gorm.io/gorm/logger"
 )
 
 // SetupDB 初始化数据库和ORM
@@ -39,7 +40,7 @@ func SetupDB() {
 		panic(errors.New("database connection not supported"))
 	}
 	// 连接数据库，并设置 GORM 的日志模式
-	database.Connect(dbConfig, logger.Default.LogMode(logger.Info))
+	database.Connect(dbConfig, logger.NewGormLogger())
 	// 设置最大连接数
 	database.SQLdb.SetMaxOpenConns(config.GetInt("database.mysql.max_open_connections"))
 	// 设置最大空闲连接数
