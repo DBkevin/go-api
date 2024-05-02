@@ -5,7 +5,7 @@ import (
 	v1 "go-api/app/http/controllers/api/v1"
 	"go-api/app/models/user"
 	"go-api/app/requests"
-	"net/http"
+	"go-api/pkg/response"
 
 	"github.com/gin-gonic/gin"
 )
@@ -25,7 +25,7 @@ func (sc *SignupController) IsPhoneExist(c *gin.Context) {
 	}
 
 	//  检查数据库并返回响应
-	c.JSON(http.StatusOK, gin.H{
+	response.JSON(c, gin.H{
 		"exist": user.IsValExist("phone", request.Phone),
 	})
 }
@@ -36,7 +36,7 @@ func (sc *SignupController) IsEmailExist(c *gin.Context) {
 	if ok := requests.Validate(c, &request, requests.ValidateSignupEmailExist); !ok {
 		return
 	}
-	c.JSON(http.StatusOK, gin.H{
+	response.JSON(c, gin.H{
 		"exist": user.IsValExist("email", request.Email),
 	})
 }
