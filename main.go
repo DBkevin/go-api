@@ -6,6 +6,7 @@ import (
 	"go-api/bootstrap"
 	btsConfig "go-api/config"
 	"go-api/pkg/config"
+	"go-api/pkg/sms"
 
 	"github.com/gin-gonic/gin"
 )
@@ -38,6 +39,10 @@ func main() {
 	r := gin.New()
 	// 初始化路由绑定
 	bootstrap.SetupRoute(r)
+	sms.NewSMS().Send("13159251992", sms.Message{
+		Template: config.GetString("sms.aliyun.template_code"),
+		Data:     map[string]string{"code": "123456"},
+	})
 
 	// 运行服务
 	err := r.Run(":" + config.Get("app.port"))
